@@ -24,6 +24,7 @@ public class GrenadeLauncher : MonoBehaviour
     [HideInInspector] public int[] grenadeMaxAmmo, grenadeCurrentAmmo;
     [HideInInspector] public float maxScatter;
     [HideInInspector] public bool regenActive = true;
+    [HideInInspector] public bool repairPanelActive = false;
 
     [Header("UI Elements")]
     public GameObject[] currentGrenadeIcons;
@@ -75,7 +76,7 @@ public class GrenadeLauncher : MonoBehaviour
     {
         if (Time.timeScale <= 0.0f) { return; }
 
-        if (!bootedUp) { return; }
+        if (!bootedUp || repairPanelActive) { return; }
         if (Input.GetKeyDown(KeyCode.Alpha1)) { StartCoroutine(LoadCycle(GrenadeType.Frag)); }
         if (Input.GetKeyDown(KeyCode.Alpha2)) { StartCoroutine(LoadCycle(GrenadeType.Flash)); }
         if (Input.GetKeyDown(KeyCode.Alpha3)) { StartCoroutine(LoadCycle(GrenadeType.Smoke)); }
@@ -90,7 +91,7 @@ public class GrenadeLauncher : MonoBehaviour
     private void FixedUpdate()
     {
         //Aim barrel
-        if (!bootedUp) { return; }
+        if (!bootedUp || repairPanelActive) { return; }
         if (Time.timeScale <= 0.0f) { return; }
 
         AimBarrel();

@@ -589,7 +589,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
             if (randomRoll > 100) { return; }
             if (randomRoll > 75) { HalveMoveSpeed(0); UpdateDamageEffects(); return; }
             if (randomRoll > 40) { DoubleStepTime(0); UpdateDamageEffects(); return; }
-            if (randomRoll > 10) { ImpairRotation(0); UpdateDamageEffects(); return; }
+            if (randomRoll > 10) { ImpairRotation(); UpdateDamageEffects(); return; }
             BreakLeg(0); UpdateDamageEffects();
         }
     }
@@ -606,7 +606,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
             if (randomRoll > 100) { return; }
             if (randomRoll > 75) { HalveMoveSpeed(1); UpdateDamageEffects(); return; }
             if (randomRoll > 40) { DoubleStepTime(1); UpdateDamageEffects(); return; }
-            if (randomRoll > 10) { ImpairRotation(1); UpdateDamageEffects(); return; }
+            if (randomRoll > 10) { ImpairRotation(); UpdateDamageEffects(); return; }
             BreakLeg(1); UpdateDamageEffects();
         }
     }
@@ -645,12 +645,13 @@ public class DamageHandler : MonoBehaviour, IDamagable
         }
     }
 
-    void ImpairRotation(int leg)
+    void ImpairRotation()
     {
-        if (legStatusEffects[leg][2] > 0) { return; }
+        if (legStatusEffects[0][2] > 0 || legStatusEffects[1][2] > 0) { return; }
         if (!systemDamage.isPlaying) { systemDamage.Play(); }
 
-        legStatusEffects[leg][2]++;
+        legStatusEffects[0][2]++;
+        legStatusEffects[1][2]++;
 
         AddStatusEffect("Rotation servos damaged");
     }
@@ -796,6 +797,155 @@ public class DamageHandler : MonoBehaviour, IDamagable
     #endregion
 
     #region limbRepairHandlers
+
+    /* Conversion from numbers to actual damage, because I suck
+     * 0: UI Left (Torso 0)
+     * 1: UI Middle (Torso 1)
+     * 2: UI Right (Torso 2)
+     * 3: LeftLight (Torso 3 and 5)
+     * 4: RightLight (Torso 4 and 6)
+     * 5: Shields (Torso 7)
+     * 6: Armor (Torso 9)
+     *
+     * 7: Barrel 0 (Arm 0)
+     * 8: Barrel 1 (Arm 1)
+     * 9: Barrel 2 (Arm 2)
+     * 10: Fire Rate (Arm 3)
+     * 11: Reload Time (Arm 4)
+     * 12: Spread (Arm 5)
+     * 13: Clip Size (Arm 6)
+     * 
+     * 14: Left Leg Speed (Leg[0][0])
+     * 15: Left Leg Step Time (Leg[0][1])
+     * 
+     * 16: Right Leg Speed (Leg[1][0])
+     * 17: Right Leg Step Time (Leg[1][1])
+     * 
+     * 18: Rotation speed (Leg[0][2] and Leg[1][2])
+     * 
+     * 19: Drum Rotation (Launcher[0])
+     * 20: Unload Time (Launcher[1])
+     * 21: Load Time (Launcher[2])
+     * 22: Scatter (Launcher[3])
+     * 23: Height (Launcher[4])
+     * 24: Regenerator (Launcher[5])
+     */
+
+    public void RepairSystem(int system)
+    {
+        switch(system)
+        {
+            case 0: Debug.LogWarning("Attempted to repair UI through system. This should not be possible."); break;
+            case 1: Debug.LogWarning("Attempted to repair UI through system. This should not be possible."); break;
+            case 2: Debug.LogWarning("Attempted to repair UI through system. This should not be possible."); break;
+            case 3: 
+                if (torsoStatusEffects[3] == 0 && torsoStatusEffects[5] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairLightLeft(); break;
+            case 4:
+                if (torsoStatusEffects[4] == 0 && torsoStatusEffects[6] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairLightRight(); break;
+            case 5:
+                if (torsoStatusEffects[7] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairShields(); break;
+            case 6:
+                if (torsoStatusEffects[9] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairArmor(); break;
+
+            case 7:
+                if (armStatusEffects[0] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairBarrelZero(); break;
+            case 8:
+                if (armStatusEffects[1] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairBarrelOne(); break;
+            case 9:
+                if (armStatusEffects[2] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairBarrelTwo(); break;
+            case 10:
+                if (armStatusEffects[3] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairFireRate(); break;
+            case 11:
+                if (armStatusEffects[4] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairReloadTime(); break;
+            case 12:
+                if (armStatusEffects[5] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairBulletSpread(); break;
+            case 13:
+                if (armStatusEffects[6] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairClipSize(); break;
+
+            case 14:
+                if (legStatusEffects[0][0] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairMoveSpeed(0); break;
+            case 15:
+                if (legStatusEffects[0][1] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairStepTime(0); break;
+            case 16:
+                if (legStatusEffects[1][0] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairMoveSpeed(1); break;
+            case 17:
+                if (legStatusEffects[1][1] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairStepTime(1); break;
+            case 18:
+                if (legStatusEffects[0][2] == 0 && legStatusEffects[1][2] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairRotationSpeed(); break;
+
+            case 19:
+                if (launcherStatusEffects[0] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairDrumRotation(); break;
+            case 20:
+                if (launcherStatusEffects[1] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairUnloadTime(); break;
+            case 21:
+                if (launcherStatusEffects[2] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairLoadTime(); break;
+            case 22:
+                if (launcherStatusEffects[3] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairScatter(); break;
+            case 23:
+                if (launcherStatusEffects[4] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairProjectileHeight(); break;
+            case 24:
+                if (launcherStatusEffects[5] == 0) { Debug.LogWarning("Attempted to repair system that wasn't damaged. This should not be possible."); }
+                RepairGrenadeRegenerator(); break;
+            default: Debug.LogError("Attempted to repair something that doesn't exist"); break;
+        }
+    }
+
+    public List<int> GetDamagedSystems()
+    {
+        List<int> damagedSystems = new List<int>();
+
+        if(torsoStatusEffects[0] > 0) { damagedSystems.Add(0); }
+        if(torsoStatusEffects[1] > 0) { damagedSystems.Add(1); }
+        if(torsoStatusEffects[2] > 0) { damagedSystems.Add(2); }
+        if(torsoStatusEffects[3] > 0 || torsoStatusEffects[5] > 0) { damagedSystems.Add(3); }
+        if(torsoStatusEffects[4] > 0 || torsoStatusEffects[6] > 0) { damagedSystems.Add(4); }
+        if(torsoStatusEffects[7] > 0) { damagedSystems.Add(5); }
+        if(torsoStatusEffects[9] > 0) { damagedSystems.Add(6); }
+
+        if(armStatusEffects[0] > 0) { damagedSystems.Add(7); }
+        if(armStatusEffects[1] > 0) { damagedSystems.Add(8); }
+        if(armStatusEffects[2] > 0) { damagedSystems.Add(9); }
+        if(armStatusEffects[3] > 0) { damagedSystems.Add(10); }
+        if(armStatusEffects[4] > 0) { damagedSystems.Add(11); }
+        if(armStatusEffects[5] > 0) { damagedSystems.Add(12); }
+        if(armStatusEffects[6] > 0) { damagedSystems.Add(13); }
+
+        if(legStatusEffects[0][0] > 0) { damagedSystems.Add(14); }
+        if(legStatusEffects[0][1] > 0) { damagedSystems.Add(15); }
+        if(legStatusEffects[1][0] > 0) { damagedSystems.Add(16); }
+        if(legStatusEffects[1][1] > 0) { damagedSystems.Add(17); }
+        if(legStatusEffects[0][2] > 0 || legStatusEffects[1][2] > 0) { damagedSystems.Add(18); }
+
+        if(launcherStatusEffects[0] > 0) { damagedSystems.Add(19); }
+        if(launcherStatusEffects[1] > 0) { damagedSystems.Add(20); }
+        if(launcherStatusEffects[2] > 0) { damagedSystems.Add(21); }
+        if(launcherStatusEffects[3] > 0) { damagedSystems.Add(22); }
+        if(launcherStatusEffects[4] > 0) { damagedSystems.Add(23); }
+        if(launcherStatusEffects[5] > 0) { damagedSystems.Add(24); }
+
+        return damagedSystems;
+    }
 
     #region TORSO
 

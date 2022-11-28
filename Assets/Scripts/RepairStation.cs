@@ -5,23 +5,37 @@ using UnityEngine;
 public class RepairStation : MonoBehaviour
 {
     public GameObject repairPanel;
+    public int amountOfHPRepair = 200, amountOfSpecificSystemRepair = 3, amountOfRandomSystemRepair = 5;
+    PlayerMovement player;
 
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if (!other.CompareTag("Player")) { return; }
-
-        repairPanel.SetActive(true);
-        PlayerMovement.Instance.repairPanelActive = true;
-        PlayerMovement.Instance.GetComponent<MechTurning>().enabled = false;
+        player = PlayerMovement.Instance;
     }
 
-    private void OnTriggerExit(Collider other)
+    public void OnEnter()
     {
-        if (!other.CompareTag("Player")) { return; }
+        repairPanel.SetActive(true);
+        player.repairPanelActive = true;
+        player.GetComponent<MechTurning>().enabled = false;
+        player.GetComponent<GrenadeLauncher>().repairPanelActive = true;
+        //player.GetComponentInChildren<MouseLook>().enabled = false;
+        //There's multiple of these. Ideally, they all reset to like, their standard position as some kind of cool animation.
 
+        //Repair all UI, since the repair screen is on there
+        player.GetComponent<DamageHandler>().RepairUILeft();
+        player.GetComponent<DamageHandler>().RepairUIMiddle();
+        player.GetComponent<DamageHandler>().RepairUIRight();
+    }
+
+    public void Onxit()
+    
+    {
         repairPanel.SetActive(false);
-        PlayerMovement.Instance.repairPanelActive = false;
-        PlayerMovement.Instance.GetComponent<MechTurning>().enabled = true;
+        player.repairPanelActive = false;
+        player.GetComponent<MechTurning>().enabled = true;
+        player.GetComponent<GrenadeLauncher>().repairPanelActive = false;
+        //player.GetComponentInChildren<MouseLook>().enabled = true;
     }
 
 
