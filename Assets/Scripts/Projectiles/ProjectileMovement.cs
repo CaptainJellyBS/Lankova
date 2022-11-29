@@ -17,7 +17,8 @@ public class ProjectileMovement : MonoBehaviour
     protected virtual void OnCollisionEnter(Collision collision)
     {
         collision.collider.GetComponentInParent<IDamagable>()?.TakeDamage(damage, collision.collider);
-
+        ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
+        if(ps != null) { ps.transform.parent = null; Destroy(ps.gameObject, 1.0f); }
         Destroy(gameObject);        
     }
 
@@ -29,6 +30,10 @@ public class ProjectileMovement : MonoBehaviour
 
     protected virtual void OnTimeOut()
     {
-        Destroy(gameObject);
+        ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
+        if (ps != null) { ps.transform.parent = null; Destroy(ps.gameObject, 1.0f); }
+
+        
+        Destroy(gameObject);        
     }
 }

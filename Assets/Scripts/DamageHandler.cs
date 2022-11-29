@@ -313,7 +313,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
         launcher.projectileHeight = defaultValues.baseProjectileHeight * Mathf.Pow(1.5f, launcherStatusEffects[4]);
         launcher.regenerationTime = defaultValues.baseRegenerationTime * Mathf.Max(1.0f, 1.5f * launcherStatusEffects[5]);
 
-        launcher.regenActive = launcherStatusEffects[5] >= 3;
+        launcher.regenActive = launcherStatusEffects[5] <= 3;
         #endregion
     }
 
