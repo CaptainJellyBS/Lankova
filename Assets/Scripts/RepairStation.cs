@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RepairStation : MonoBehaviour
 {
@@ -35,6 +36,10 @@ public class RepairStation : MonoBehaviour
         damageHandler.randomSystemRepairButton.onClick.RemoveAllListeners(); //UNITY IK HAAAAAAAT JE
         damageHandler.hpRepairButton.onClick.AddListener(RepairHP);
         damageHandler.randomSystemRepairButton.onClick.AddListener(RepairRandomSystems);
+
+        damageHandler.hpRepairButton.GetComponentInChildren<Text>().text = "Repair " + (int)(hpRepairPercentage * 100) + "% HP";
+        damageHandler.randomSystemRepairButton.GetComponentInChildren<Text>().text = "Repair " + amountOfRandomSystemRepair + " random systems";
+        damageHandler.specificSystemRepairButton.GetComponentInChildren<Text>().text = "Repair " + amountOfSpecificSystemRepair + " systems";
     }
 
     public void RepairHP()
