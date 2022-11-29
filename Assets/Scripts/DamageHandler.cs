@@ -56,11 +56,11 @@ public class DamageHandler : MonoBehaviour, IDamagable
     [HideInInspector] public float maxTorsoHealth = 200, maxLegHealth = 100, maxArmHealth = 100, maxLauncherHealth = 100;
     [HideInInspector] public float empTime;
 
-    float currentTorsoHealth;
-    float currentArmHealth;
-    float currentLeftLegHealth;
-    float currentRightLegHealth;
-    float currentLauncherHealth;
+    public float currentTorsoHealth { get; private set; }
+    public float currentArmHealth { get; private set; }
+    public float currentLeftLegHealth { get; private set; }
+    public float currentRightLegHealth { get; private set; }
+    public float currentLauncherHealth { get; private set; }
     #endregion
 
     #region GAMEOBJECTSETC
@@ -75,6 +75,8 @@ public class DamageHandler : MonoBehaviour, IDamagable
     public GameObject shieldsLow, shieldsDown, reactorMeltdown;
     public FlashbangUI flashUI;
     public GameObject[] systemDamageText;
+
+    public Button hpRepairButton, randomSystemRepairButton, specificSystemRepairButton;
 
     [Header("Colors")]
     public Color damagedColor;
@@ -318,13 +320,19 @@ public class DamageHandler : MonoBehaviour, IDamagable
     #region limbDamageHandlers
 
     #region torso
+    public void SetTorsoHealth(float newHP)
+    {
+        currentTorsoHealth = Mathf.Clamp(newHP, 0, maxTorsoHealth);
+        currentTorsoColor = Color.Lerp(damagedColor, componentHealthyColor, currentTorsoHealth / maxTorsoHealth);
+
+        StartCoroutine(FlashTorsoIndicator(damagedColor));
+    }
+
     void HandleTorsoDamage(float damage)
     {
-        damage = Mathf.Max(1.0f, damage - 2.0f);
-        currentTorsoHealth = Mathf.Clamp(currentTorsoHealth - damage, 0, maxTorsoHealth);
-        //torsoIndicator.color = Color.Lerp(damagedColor, componentHealthyColor, currentTorsoHealth / maxTorsoHealth);
-        currentTorsoColor = Color.Lerp(damagedColor, componentHealthyColor, currentTorsoHealth / maxTorsoHealth);
-        StartCoroutine(FlashTorsoIndicator(damagedColor));
+        damage = Mathf.Max(1.0f, damage - torsoArmor);
+        SetTorsoHealth(currentTorsoHealth - damage);
+
         if (Random.Range(0, maxTorsoHealth - 1) > currentTorsoHealth)
         {
             float randomRoll = Random.Range(0, 100) + Mathf.Min(currentTorsoHealth, 100);
@@ -465,11 +473,17 @@ public class DamageHandler : MonoBehaviour, IDamagable
     #endregion
 
     #region arm
+    public void SetArmHealth(float newHP)
+    {
+        currentArmHealth = Mathf.Clamp(newHP, 0, maxArmHealth);
+        currentArmColor = Color.Lerp(damagedColor, componentHealthyColor, currentArmHealth / maxArmHealth);
+        StartCoroutine(FlashArmIndicator(damagedColor)); 
+    }
+
     void HandleArmDamage(float damage)
     {
-        currentArmHealth = Mathf.Clamp(currentArmHealth - damage, 0, maxArmHealth);
-        currentArmColor = Color.Lerp(damagedColor, componentHealthyColor, currentArmHealth / maxArmHealth);
-        StartCoroutine(FlashArmIndicator(damagedColor));
+        SetArmHealth(currentArmHealth - damage);
+
         if (Random.Range(0, maxArmHealth - 1) > currentArmHealth)
         {
             if (!systemDamage.isPlaying) { systemDamage.Play(); }
@@ -577,11 +591,23 @@ public class DamageHandler : MonoBehaviour, IDamagable
 
     #region legs
 
-    void HandleLeftLegDamage(float damage)
+    public void SetLeftLegHealth(float newHP)
     {
-        currentLeftLegHealth = Mathf.Clamp(currentLeftLegHealth - damage, 0, maxLegHealth);
+        currentLeftLegHealth = Mathf.Clamp(newHP, 0, maxLegHealth);
         currentLeftLegColor = Color.Lerp(damagedColor, componentHealthyColor, currentLeftLegHealth / maxLegHealth);
         StartCoroutine(FlashLeftLegIndicator(damagedColor));
+    }
+    
+    public void SetRightLegHealth(float newHP)
+    {
+        currentRightLegHealth = Mathf.Clamp(newHP, 0, maxLegHealth);
+        currentRightLegColor = Color.Lerp(damagedColor, componentHealthyColor, currentRightLegHealth / maxLegHealth);
+        StartCoroutine(FlashRightLegIndicator(damagedColor));
+    }
+
+    void HandleLeftLegDamage(float damage)
+    {
+        SetLeftLegHealth(currentLeftLegHealth - damage);
         if (Random.Range(0, maxLegHealth - 1) > currentLeftLegHealth)
         {
 
@@ -596,9 +622,8 @@ public class DamageHandler : MonoBehaviour, IDamagable
 
     void HandleRightLegDamage(float damage)
     {
-        currentRightLegHealth = Mathf.Clamp(currentRightLegHealth - damage, 0, maxLegHealth);
-        currentRightLegColor = Color.Lerp(damagedColor, componentHealthyColor, currentRightLegHealth / maxLegHealth);
-        StartCoroutine(FlashRightLegIndicator(damagedColor));
+        SetRightLegHealth(currentRightLegHealth - damage);
+
         if (Random.Range(0, maxLegHealth - 1) > currentRightLegHealth)
         {
 
@@ -671,11 +696,18 @@ public class DamageHandler : MonoBehaviour, IDamagable
     #endregion
 
     #region launcher
+    public void SetLauncherHealth(float newHP)
+    {
+        currentLauncherHealth = Mathf.Clamp(newHP, 0, maxLauncherHealth);
+        currentLauncherColor = Color.Lerp(damagedColor, componentHealthyColor, currentLauncherHealth / maxLauncherHealth);
+
+        StartCoroutine(FlashLauncherIndicator(damagedColor));
+    }
+
     void HandleLauncherDamage(float damage)
     {
-        currentLauncherHealth = Mathf.Clamp(currentLauncherHealth - damage, 0, maxLauncherHealth);
-        currentLauncherColor = Color.Lerp(damagedColor, componentHealthyColor, currentLauncherHealth / maxLauncherHealth);
-        StartCoroutine(FlashLauncherIndicator(damagedColor));
+        SetLauncherHealth(currentLauncherHealth - damage);
+
         if (Random.Range(0, maxLauncherHealth - 1) > currentLauncherHealth)
         {
             float randomRoll = Random.Range(0, 100) + (currentLauncherHealth / maxLauncherHealth * 100);
@@ -953,18 +985,21 @@ public class DamageHandler : MonoBehaviour, IDamagable
     {
         torsoStatusEffects[0] = 0;
         RemoveStatusEffect("Status HUD Damaged");
+        UpdateDamageEffects();
     }
 
     public void RepairUIMiddle()
     {
         torsoStatusEffects[1] = 0;
         RemoveStatusEffect("Center HUD Damaged");
+        UpdateDamageEffects();
     }
 
     public void RepairUIRight()
     {
         torsoStatusEffects[2] = 0;
         RemoveStatusEffect("Weapon HUD Damaged");
+        UpdateDamageEffects();
     }
 
     public void RepairLightLeft()
@@ -973,6 +1008,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
         torsoStatusEffects[5] = 0;
         RemoveStatusEffect("Left Spotlight Damaged");
         RemoveStatusEffect("Left Spotlight Destroyed");
+        UpdateDamageEffects();
     }
     
     public void RepairLightRight()
@@ -981,6 +1017,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
         torsoStatusEffects[6] = 0;
         RemoveStatusEffect("Right Spotlight Damaged");
         RemoveStatusEffect("Right Spotlight Destroyed");
+        UpdateDamageEffects();
     }
 
     public void RepairShields()
@@ -990,6 +1027,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
         RemoveStatusEffect("Shield matrix misaligned");
         RemoveStatusEffect("Shields cascading");
         RemoveStatusEffect("Shields destroyed");
+        UpdateDamageEffects();
     }
 
     public void RepairArmor()
@@ -998,6 +1036,8 @@ public class DamageHandler : MonoBehaviour, IDamagable
         RemoveStatusEffect("Torso armor punctured");
         RemoveStatusEffect("Torso armor severely damaged");
         RemoveStatusEffect("Torso armor broken");
+        RemoveStatusEffect("Torso armor damaged");
+        UpdateDamageEffects();
     }
 
     #endregion
@@ -1010,6 +1050,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
         RemoveStatusEffect("Barrel 1 warped");
         RemoveStatusEffect("Barrel 1 severely damaged");
         RemoveStatusEffect("Barrel 1 destroyed");
+        UpdateDamageEffects();
     }
     
     public void RepairBarrelOne()
@@ -1018,6 +1059,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
         RemoveStatusEffect("Barrel 2 warped");
         RemoveStatusEffect("Barrel 2 severely damaged");
         RemoveStatusEffect("Barrel 2 destroyed");
+        UpdateDamageEffects();
     }
     
     public void RepairBarrelTwo()
@@ -1026,6 +1068,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
         RemoveStatusEffect("Barrel 3 warped");
         RemoveStatusEffect("Barrel 3 severely damaged");
         RemoveStatusEffect("Barrel 3 destroyed");
+        UpdateDamageEffects();
     }
 
     public void RepairFireRate()
@@ -1033,6 +1076,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
         armStatusEffects[3] = 0;
         RemoveStatusEffect("Gun motor snagging");
         RemoveStatusEffect("Firing mechanism damaged");
+        UpdateDamageEffects();
     }
 
     public void RepairReloadTime()
@@ -1041,12 +1085,14 @@ public class DamageHandler : MonoBehaviour, IDamagable
         RemoveStatusEffect("Magazine holder misaligned");
         RemoveStatusEffect("Reload coroutine lagging");
         RemoveStatusEffect("Clip ejector jammed");
+        UpdateDamageEffects();
     }
 
     public void RepairBulletSpread()
     {
         armStatusEffects[5] = 0;
         RemoveStatusEffect("Targeting mechanisms failing");
+        UpdateDamageEffects();
     }
 
     public void RepairClipSize()
@@ -1054,6 +1100,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
         armStatusEffects[6] = 0;
         RemoveStatusEffect("Secondary clip feed broken");
         RemoveStatusEffect("Clip feed jammed");
+        UpdateDamageEffects();
     }
 
     #endregion
@@ -1070,6 +1117,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
         RemoveStatusEffect(legName + " upper servo jammed");
         RemoveStatusEffect(legName + " hydrolic fluid leaking");
         RemoveStatusEffect(legName + " disabled");
+        UpdateDamageEffects();
     }
 
     public void RepairStepTime(int leg)
@@ -1080,7 +1128,8 @@ public class DamageHandler : MonoBehaviour, IDamagable
         if (leg == 0) { legName = "Left leg"; } else { legName = "Right leg"; }
 
         RemoveStatusEffect(legName + " speed limited");
-        RemoveStatusEffect(legName + " brakes misfiring");        
+        RemoveStatusEffect(legName + " brakes misfiring");
+        UpdateDamageEffects();
     }
 
     public void RepairRotationSpeed()
@@ -1089,6 +1138,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
         legStatusEffects[1][2] = 0;
 
         RemoveStatusEffect("Rotation servos damaged");
+        UpdateDamageEffects();
     }
 
     #endregion
@@ -1101,6 +1151,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
         RemoveStatusEffect("Launcher drum motor damaged");
         RemoveStatusEffect("Launcher drum warped");
         RemoveStatusEffect("Launcher drum severely damaged");
+        UpdateDamageEffects();
     }
 
     public void RepairUnloadTime()
@@ -1108,12 +1159,14 @@ public class DamageHandler : MonoBehaviour, IDamagable
         launcherStatusEffects[1] = 0;
         RemoveStatusEffect("Launcher unload rail warped");
         RemoveStatusEffect("Launcher leaking hydrolic fluid");
+        UpdateDamageEffects();
     }
 
     public void RepairLoadTime()
     {
         launcherStatusEffects[2] = 0;
         RemoveStatusEffect("Launcher loading mechanism damaged");
+        UpdateDamageEffects();
     }
 
     public void RepairScatter()
@@ -1122,12 +1175,14 @@ public class DamageHandler : MonoBehaviour, IDamagable
         RemoveStatusEffect("Launcher barrel misaligned");
         RemoveStatusEffect("Launcher targeting sensor blocked");
         RemoveStatusEffect("Launcher barrel bent");
+        UpdateDamageEffects();
     }
 
     public void RepairProjectileHeight()
     {
         launcherStatusEffects[4] = 0;
         RemoveStatusEffect("Launcher vertical stabilizer bent");
+        UpdateDamageEffects();
     }
 
     public void RepairGrenadeRegenerator()
@@ -1136,6 +1191,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
         RemoveStatusEffect("Grenade generator leaking");
         RemoveStatusEffect("Grenade generator feed clogged");
         RemoveStatusEffect("Grenade generator broken");
+        UpdateDamageEffects();
     }
 
     #endregion
@@ -1430,5 +1486,4 @@ public class DamageHandler : MonoBehaviour, IDamagable
             deathPanel.GetComponent<Image>().color = Color.Lerp(Color.clear, Color.black, t);
         }
     }
-
 }

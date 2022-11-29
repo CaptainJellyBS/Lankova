@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMoveSpeed: 1.5
   baseStepTime: 0.5
-  baseNormalRotationSpeed: 20
+  baseNormalRotationSpeed: 25
   baseLegMoveSpeeds:
   - 2
   - 2

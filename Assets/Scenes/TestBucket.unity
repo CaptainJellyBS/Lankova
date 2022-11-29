@@ -13826,7 +13826,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1572717034}
         m_TargetAssemblyTypeName: RepairStation, Assembly-CSharp
-        m_MethodName: Onxit
+        m_MethodName: OnExit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27863,7 +27863,7 @@ GameObject:
   - component: {fileID: 1056039226}
   - component: {fileID: 1056039225}
   m_Layer: 5
-  m_Name: SystemRepair (2)
+  m_Name: HPRepair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36121,7 +36121,7 @@ GameObject:
   - component: {fileID: 1392782782}
   - component: {fileID: 1392782781}
   m_Layer: 5
-  m_Name: SystemRepair (1)
+  m_Name: RandomSystemRepair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40641,6 +40641,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   repairPanel: {fileID: 1039726890}
+  amountOfSpecificSystemRepair: 3
+  amountOfRandomSystemRepair: 5
+  hpRepairPercentage: 1
 --- !u!4 &1572717035
 Transform:
   m_ObjectHideFlags: 0
@@ -56902,6 +56905,9 @@ MonoBehaviour:
   - {fileID: 2073276067}
   - {fileID: 330467383}
   - {fileID: 287810244}
+  hpRepairButton: {fileID: 1056039225}
+  randomSystemRepairButton: {fileID: 1392782781}
+  specificSystemRepairButton: {fileID: 2097433226}
   damagedColor: {r: 1, g: 0, b: 0, a: 0.78431374}
   componentHealthyColor: {r: 0.42352942, g: 1, b: 0.4, a: 0.39215687}
   shieldHealthyColor: {r: 0.69411767, g: 0.9254902, b: 1, a: 0.53333336}
