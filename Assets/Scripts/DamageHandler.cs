@@ -276,7 +276,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
             default: Debug.LogError("WTF"); break;
         }
 
-        player.bulletMaxSpread = defaultValues.baseBulletMaxSpread + (defaultValues.baseBulletMaxSpread * armStatusEffects[4]);
+        player.bulletMaxSpread = defaultValues.baseBulletMaxSpread + (defaultValues.baseBulletMaxSpread * armStatusEffects[5]);
 
         switch (armStatusEffects[6])
         {
