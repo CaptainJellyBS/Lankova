@@ -55,5 +55,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7344717350310235181, guid: f718e9334f66b854199b11c7b514cfa2, type: 3}
+      propertyPath: enemyName
+      value: Trooper
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344717350310235181, guid: f718e9334f66b854199b11c7b514cfa2, type: 3}
+      propertyPath: weaponName
+      value: Pistol
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f718e9334f66b854199b11c7b514cfa2, type: 3}

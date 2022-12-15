@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class DamagableObject : MonoBehaviour, IDamagable
 {
+    public string objectName;
     Flasher flasher;
     public int HP, armor;
     public UnityEvent onDestroyEvent;

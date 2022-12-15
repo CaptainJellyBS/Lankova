@@ -224,6 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc94497a024fe74eab46d0895bf57f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Ceiling Light
   HP: 1
   armor: 0
   onDestroyEvent:

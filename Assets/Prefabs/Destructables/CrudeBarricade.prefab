@@ -109,11 +109,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc94497a024fe74eab46d0895bf57f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Barricade
   HP: 15
   armor: 0
   onDestroyEvent:
     m_PersistentCalls:
       m_Calls: []
+  destroyParentIfAllChildrenDestroyed: 1
 --- !u!114 &1303357128396746438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,11 +273,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc94497a024fe74eab46d0895bf57f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Barricade
   HP: 25
   armor: 0
   onDestroyEvent:
     m_PersistentCalls:
       m_Calls: []
+  destroyParentIfAllChildrenDestroyed: 1
 --- !u!114 &1303357128687021943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,11 +401,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc94497a024fe74eab46d0895bf57f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Barricade
   HP: 15
   armor: 0
   onDestroyEvent:
     m_PersistentCalls:
       m_Calls: []
+  destroyParentIfAllChildrenDestroyed: 1
 --- !u!114 &1303357128762966817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,11 +529,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc94497a024fe74eab46d0895bf57f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Barricade
   HP: 15
   armor: 0
   onDestroyEvent:
     m_PersistentCalls:
       m_Calls: []
+  destroyParentIfAllChildrenDestroyed: 1
 --- !u!114 &1303357128811456705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,11 +657,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc94497a024fe74eab46d0895bf57f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Barricade
   HP: 15
   armor: 0
   onDestroyEvent:
     m_PersistentCalls:
       m_Calls: []
+  destroyParentIfAllChildrenDestroyed: 1
 --- !u!114 &1303357129620702327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,11 +785,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc94497a024fe74eab46d0895bf57f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Barricade
   HP: 15
   armor: 0
   onDestroyEvent:
     m_PersistentCalls:
       m_Calls: []
+  destroyParentIfAllChildrenDestroyed: 1
 --- !u!114 &1303357129874775604
 MonoBehaviour:
   m_ObjectHideFlags: 0

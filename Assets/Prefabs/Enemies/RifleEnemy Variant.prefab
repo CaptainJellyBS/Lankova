@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7344717350310235178, guid: f718e9334f66b854199b11c7b514cfa2, type: 3}
       propertyPath: m_Name
-      value: RifleEnemy
+      value: RifleEnemy Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7344717350310235180, guid: f718e9334f66b854199b11c7b514cfa2, type: 3}
       propertyPath: m_RootOrder
@@ -68,8 +68,16 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7344717350310235181, guid: f718e9334f66b854199b11c7b514cfa2, type: 3}
+      propertyPath: enemyName
+      value: Trooper
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344717350310235181, guid: f718e9334f66b854199b11c7b514cfa2, type: 3}
       propertyPath: reloadTime
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344717350310235181, guid: f718e9334f66b854199b11c7b514cfa2, type: 3}
+      propertyPath: weaponName
+      value: Rifle
       objectReference: {fileID: 0}
     - target: {fileID: 7344717350310235181, guid: f718e9334f66b854199b11c7b514cfa2, type: 3}
       propertyPath: bulletSpread

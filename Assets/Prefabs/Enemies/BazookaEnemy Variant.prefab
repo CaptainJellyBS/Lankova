@@ -76,8 +76,16 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7344717350310235181, guid: f718e9334f66b854199b11c7b514cfa2, type: 3}
+      propertyPath: enemyName
+      value: Rocketeer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344717350310235181, guid: f718e9334f66b854199b11c7b514cfa2, type: 3}
       propertyPath: reloadTime
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344717350310235181, guid: f718e9334f66b854199b11c7b514cfa2, type: 3}
+      propertyPath: weaponName
+      value: Rocket Launcher
       objectReference: {fileID: 0}
     - target: {fileID: 7344717350310235181, guid: f718e9334f66b854199b11c7b514cfa2, type: 3}
       propertyPath: bulletPrefab

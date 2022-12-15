@@ -4,11 +4,12 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour, IDamagable
 {
-    protected float hp;
+    public float hp { get; protected set; }
     public float maxHP;
     protected Rigidbody rb;
     protected Flasher flasher;
     public float armor = 0.0f;
+    public string enemyName = "enemy", weaponName = "", secondaryWeaponName = "";
 
     protected virtual void Start()
     {

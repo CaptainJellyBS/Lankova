@@ -256,6 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d306510c4d2fb3949b41c45c99108b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Target Dummy
   HP: 15
   armor: 0
   onDestroyEvent:
