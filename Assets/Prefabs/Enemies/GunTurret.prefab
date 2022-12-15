@@ -182,27 +182,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 140
   armor: 5
-  clipSize: 120
-  fireRate: 24
-  reloadTime: 1
-  bulletSpread: 1.5
-  range: 100
-  minRange: 0
+  enemyName: Turret
+  weaponName: Machine Gun
+  secondaryWeaponName: 
   moveSpeed: 0
-  stunnedTime: 12
   flashedTime: 0
   smokeSpreadMultiplier: 0
   flashSpreadMultiplier: 0
-  bulletPrefab: {fileID: 1997933098134544529, guid: d2238c972669169409e95d965061045b, type: 3}
-  bulletSpawn: {fileID: 2050393907141310660}
-  armPivot: {fileID: 2050393906819769788}
   seePlayerMask:
     serializedVersion: 2
     m_Bits: 4225
   seePlayerMaskNoSmoke:
     serializedVersion: 2
     m_Bits: 129
+  fireRate: 24
+  reloadTime: 1
+  bulletSpread: 1.5
+  range: 100
+  minRange: 0
+  stunnedTime: 12
+  clipSize: 120
+  bulletPrefab: {fileID: 1997933098134544529, guid: d2238c972669169409e95d965061045b, type: 3}
+  bulletSpawn: {fileID: 2050393907141310660}
+  armPivot: {fileID: 2050393906819769788}
   firingSound: {fileID: 2408961791491537752}
+  secondaryProjectile: {fileID: 0}
+  secondaryAmmo: 0
+  secondaryRange: 0
+  secondaryCooldown: 0
+  secondaryScatter: 0
+  secondarySpawn: {fileID: 0}
 --- !u!54 &2050393907012220398
 Rigidbody:
   m_ObjectHideFlags: 0
