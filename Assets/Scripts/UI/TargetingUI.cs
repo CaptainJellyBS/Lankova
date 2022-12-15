@@ -15,6 +15,8 @@ public class TargetingUI : MonoBehaviour
     public float baseDistanceReticle = 12.0f;
     public float scaleSpeed;
 
+    Enemy lastTargetedEnemy;
+
     private void FixedUpdate()
     {
         RaycastHit hit;
@@ -29,6 +31,7 @@ public class TargetingUI : MonoBehaviour
             {
                 targetInfoPanel.SetActive(false);
                 targetingReticle.SetActive(false);
+                GameManager.Instance.SetCursorOverEnemy(false);
                 return;
             }
 
@@ -36,6 +39,7 @@ public class TargetingUI : MonoBehaviour
             {
                 targetInfoPanel.SetActive(true);
                 targetingReticle.SetActive(true);
+                GameManager.Instance.SetCursorOverEnemy(true);
 
                 hpText.text = ((int)enemy.hp).ToString();
                 armorText.text = ((int)enemy.armor).ToString();
@@ -70,6 +74,7 @@ public class TargetingUI : MonoBehaviour
             {
                 targetInfoPanel.SetActive(true);
                 targetingReticle.SetActive(false);
+                GameManager.Instance.SetCursorOverEnemy(true);
 
                 hpText.text = (dob.HP).ToString();
                 armorText.text = (dob.armor).ToString();

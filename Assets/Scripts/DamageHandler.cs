@@ -152,20 +152,10 @@ public class DamageHandler : MonoBehaviour, IDamagable
     private void Update()
     {
         timeSinceLastDamaged += Time.deltaTime;
-        //DebugUpdate();
     }
 
     void DebugUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            HalveMoveSpeed(0); UpdateDamageEffects();
-        }
-
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            RepairMoveSpeed(0); UpdateDamageEffects();
-        }
     }
 
     void LoadSettings()

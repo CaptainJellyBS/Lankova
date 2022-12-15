@@ -99,7 +99,7 @@ public class GunEnemy : Enemy
 
             while (!playerInSight)
             {
-                yield return new WaitForSeconds(1.0f);
+                yield return new WaitForSeconds(1.0f + Random.Range(0.05f,0.1f));
                 if (Physics.Raycast(transform.position, PlayerMovement.Instance.transform.position - transform.position, out hit, range, seePlayerMaskNoSmoke))
                 { playerInSight = hit.collider.CompareTag("Player");  } 
                 else { playerInSight = false; }

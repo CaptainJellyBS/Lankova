@@ -15,12 +15,12 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.043137256, g: 0.050980393, b: 0.078431375, a: 1}
+  m_AmbientSkyColor: {r: 0.0013349934, g: 0.0050439774, b: 0.01886791, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -7922,7 +7922,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.9245283, g: 0.8869528, b: 0.6759523, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.75
   m_Range: 50
   m_SpotAngle: 90
   m_InnerSpotAngle: 1
@@ -14597,7 +14597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &550022770
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25483,7 +25483,6 @@ GameObject:
   - component: {fileID: 946845519}
   - component: {fileID: 946845522}
   - component: {fileID: 946845523}
-  - component: {fileID: 946845524}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -25537,7 +25536,8 @@ MonoBehaviour:
   winEvents:
     m_PersistentCalls:
       m_Calls: []
-  cursor: {fileID: 2800000, guid: 3778e351da031ba40883980d877d8c04, type: 3}
+  cursor: {fileID: 2800000, guid: 9ffef0a6a2d6f2e449e5c225b54853bc, type: 3}
+  enemyCursor: {fileID: 2800000, guid: d638934fe4a0b6c488deb321097c1055, type: 3}
   pauseEvents:
     m_PersistentCalls:
       m_Calls:
@@ -25613,20 +25613,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subPanel: {fileID: 1521618075}
   subText: {fileID: 1010365281}
---- !u!114 &946845524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 946845518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba643054153459d439341f3fe2f60956, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: 114
-  obbie: {fileID: 1039726890}
 --- !u!1 &947007875
 GameObject:
   m_ObjectHideFlags: 0
@@ -41789,7 +41775,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1572717034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45152,7 +45138,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.9245283, g: 0.8869528, b: 0.6759523, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.75
   m_Range: 50
   m_SpotAngle: 90
   m_InnerSpotAngle: 1
@@ -58519,7 +58505,7 @@ MonoBehaviour:
   - {fileID: 243784647}
   - {fileID: 1877122711}
   tutorial: []
-  skipBootup: 1
+  skipBootup: 0
 --- !u!114 &7272062613365665830
 MonoBehaviour:
   m_ObjectHideFlags: 0

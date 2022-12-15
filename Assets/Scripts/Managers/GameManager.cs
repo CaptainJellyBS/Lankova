@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public UnityEvent deathEvents, winEvents;
-    public Texture2D cursor;
+    public Texture2D cursor, enemyCursor;
     public UnityEvent pauseEvents;
     public bool canPause;
 
@@ -28,6 +28,12 @@ public class GameManager : MonoBehaviour
         {
             TogglePause();
         }
+    }
+
+    public void SetCursorOverEnemy(bool isCursorOverEnemy)
+    {
+        if (isCursorOverEnemy) { Cursor.SetCursor(enemyCursor, new Vector2(enemyCursor.width / 2, enemyCursor.height / 2), CursorMode.ForceSoftware); }
+        else { Cursor.SetCursor(cursor, new Vector2(cursor.width / 2, cursor.height / 2), CursorMode.ForceSoftware); }
     }
 
     #region ManaBasic Functionality
