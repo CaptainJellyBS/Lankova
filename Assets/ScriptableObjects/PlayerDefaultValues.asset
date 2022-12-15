@@ -36,7 +36,7 @@ MonoBehaviour:
   baseBarrelRotateTime: 0.25
   baseUnloadTime: 0.5
   baseLoadTime: 0.5
-  baseRegenerationTime: 30
+  baseRegenerationTime: 20
   baseGrenadeMaxAmmo: 02000000040000000300000002000000
   baseMaxScatter: 0
   baseRegenActive: 1
