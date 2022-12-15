@@ -93,6 +93,7 @@ public class DamageHandler : MonoBehaviour, IDamagable
     public Light leftLight;
     public Light rightLight;
     public GameObject leftLightObject, rightLightObject;
+    public GameObject leftEmergencyLightObject, rightEmergencyLightObject;
     public GameObject[] EMPable;
 
     [Header("AudioSources")]
@@ -152,10 +153,21 @@ public class DamageHandler : MonoBehaviour, IDamagable
     private void Update()
     {
         timeSinceLastDamaged += Time.deltaTime;
+        //DebugUpdate();
     }
 
     void DebugUpdate()
     {
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            DisableRightLight();
+            UpdateDamageEffects();
+        }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            DisableLeftLight();
+            UpdateDamageEffects();
+        }
     }
 
     void LoadSettings()
@@ -235,6 +247,8 @@ public class DamageHandler : MonoBehaviour, IDamagable
 
         leftLightObject.SetActive(torsoStatusEffects[5] == 0);
         rightLightObject.SetActive(torsoStatusEffects[6] == 0);
+        leftEmergencyLightObject.SetActive(torsoStatusEffects[5] > 0);
+        rightEmergencyLightObject.SetActive(torsoStatusEffects[6] > 0);
 
         currentShieldMax = Mathf.Max(defaultValues.baseShieldMax * (1.0f - (torsoStatusEffects[7] * 0.25f)), 0);
 
