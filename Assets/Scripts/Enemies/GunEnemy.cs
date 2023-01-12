@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GunEnemy : Enemy
 {
+    public GameObject smokeOutline;
     [Header("Stats")]
     public float moveSpeed;
     public float flashedTime, smokeSpreadMultiplier = 3.0f, flashSpreadMultiplier = 6.0f;
@@ -95,8 +96,9 @@ public class GunEnemy : Enemy
             RaycastHit hit;
             if (Physics.Raycast(transform.position, PlayerMovement.Instance.transform.position - transform.position, out hit, range, seePlayerMaskNoSmoke))
             { playerInSight = hit.collider.CompareTag("Player"); }
-            else { playerInSight = false; }            
-
+            else { playerInSight = false; }
+            smokeOutline.SetActive(false);
+            
             while (!playerInSight)
             {
                 yield return new WaitForSeconds(1.0f + Random.Range(0.05f,0.1f));
@@ -109,8 +111,9 @@ public class GunEnemy : Enemy
             float actualSpread = bulletSpread;
 
             Physics.Raycast(transform.position, PlayerMovement.Instance.transform.position - transform.position, out hit, range, seePlayerMask);
-            if (hit.collider.CompareTag("Smoke")) { actualSpread *= smokeSpreadMultiplier; }
-            if (inSmoke) { actualSpread *= smokeSpreadMultiplier * 0.5f; }
+
+            if (hit.collider.CompareTag("Smoke")) { actualSpread *= smokeSpreadMultiplier; smokeOutline.SetActive(true); }
+            if (inSmoke) { actualSpread *= smokeSpreadMultiplier * 0.5f; smokeOutline.SetActive(true); }
             if (flashed) { actualSpread *= flashSpreadMultiplier; }
 
 
